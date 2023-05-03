@@ -4,19 +4,31 @@ const FPL_API_HELPER=require("./fpl_api_helper");
 //async run
 async function run(){
 
-    const managerId="1225149";
+    // const managerId="1225149";
+    const managerId=process.argv[2];
+    if(!managerId){
+        console.log("Please execute with manager id as command line argument");
+        return;
+    }
+
+
+    console.log(`FETCHING MANAGER DETAILS\n`);
+    const managerEntryData=await FPL_API_HELPER.fetchManagerEntryData(managerId);
+
+    console.log(`Manager: ${managerEntryData.name} [${managerEntryData.player_first_name} ${managerEntryData.player_last_name}]\n\n`);
+
+    // managerEntryData.current_event=managerEntryData.started_event+1; //HACK
 
     console.log(`PREPARING BOOTSTRAP STATIC`);
     const bootstrapStatic=await FPL_API_HELPER.fetchBootstrapStatic();
 
     // console.log(bootstrapStatic);
-    // console.log(bootstrapStatic.teams);
+    // console.log(Object.keys(bootstrapStatic));
 
     console.log(`\n\n`);
 
-    const managerEntryData=await FPL_API_HELPER.fetchManagerEntryData(managerId);
 
-    // managerEntryData.current_event=managerEntryData.started_event+1; //HACK
+
 
     const managerEventsPicks=[];
     const managerUsedElementsDetailedData={};
