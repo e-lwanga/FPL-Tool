@@ -11,6 +11,9 @@ async function run(){
         return;
     }
 
+    
+    const noDelays=process.argv.indexOf("--no-delays")>=0;
+
 
     console.log(`FETCHING MANAGER DETAILS\n`);
     const managerEntryData=await FPL_API_HELPER.fetchManagerEntryData(managerId);
@@ -68,11 +71,13 @@ async function run(){
                 console.log("***");
                 managerUsedElementsDetailedData[`${pickElementObj.id}`] = await FPL_API_HELPER.fetchElementDetailedData(pickElementObj.id);
 
-                await new Promise(function(resolve,reject){
-                    setTimeout(function(){
-                        resolve();
-                    },2000);
-                });
+                if(!noDelays){
+                    await new Promise(function(resolve,reject){
+                        setTimeout(function(){
+                            resolve();
+                        },2000);
+                    });
+                }
             }
 
             const elementDetailedData=managerUsedElementsDetailedData[`${pickElementObj.id}`];
@@ -100,11 +105,13 @@ async function run(){
 
         console.log("..............................\n\n");
 
+        if(!noDelays){
         await new Promise(function(resolve,reject){
             setTimeout(function(){
                 resolve();
             },2000);
         });
+    }
     }
 
     // console.log(managerEventsPicks);
