@@ -6,7 +6,7 @@ const FPL_API_HELPER=require("./fpl_api_helper");
 
 const app = EXPRESS();
 
-app.use(CORS()); //disable in production mode
+// app.use(CORS()); //disable in production mode
 
 app.get("/get-bootstrap-static",function(requestObj,responser){
   FPL_API_HELPER.fetchBootstrapStatic().then(function(data){

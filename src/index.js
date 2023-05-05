@@ -21,11 +21,13 @@ root.render(
 
 export function getServerAddress(){
     //server address returned doesn't contain a trailing /
-    const protocol="http:";
+    // const protocol="http:";
     // const protocol="https:";
-    const hostname="10.42.0.15";
+    const protocol=window.location.protocol;
+    // const hostname="10.42.0.15";
     // const hostname="fpltool.com";
-    const port=80;
-    // const port=null;
+    const hostname=window.location.hostname;
+    // const port=80;
+    const port=null;
     return `${protocol}//${hostname}${port? `:${port}`:``}`;
 }
